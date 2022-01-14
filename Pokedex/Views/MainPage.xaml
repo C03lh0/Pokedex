@@ -1,0 +1,134 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Pokedex.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="using:Pokedex.PokedexViewModel"
+    xmlns:Custom="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:Custom1="using:Microsoft.UI.Xaml.Controls"
+    x:Name="InitialPage"
+    x:Class="Pokedex.Views.MainPage"
+    d:DataContext="{d:DesignInstance Type=viewmodels:PokemonViewModel}"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+
+    <Page.DataContext>
+        <viewmodels:PokemonViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
+
+    <Grid Background="#FF2B5FAA">
+        <Grid x:Name="pokemonsGrid" HorizontalAlignment="Left" Height="410" VerticalAlignment="Top" Width="975" Background="#FFC12525" Margin="155,200,0,0" CornerRadius="8"/>
+        <GridView x:Name="pokemonsGridView" HorizontalAlignment="Left"  Margin="158,200,0,0" RenderTransformOrigin="0.5,0.5" Width="975" Height="410" VerticalAlignment="Top" ItemsSource="{Binding PokemonCollection, Mode=TwoWay}" IsItemClickEnabled="False">
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="190"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Button Grid.Row="1" Click="PokemonInformationButtonEvent" CommandParameter="{Binding ID}" CornerRadius="8" Background="Transparent" MinHeight="175" MinWidth="175">
+                            <Button.Content>
+                                <Image Source="{Binding ImageFilePath}"  Grid.Row="1" HorizontalAlignment="Center"/>
+                            </Button.Content>
+                        </Button>
+                        <TextBlock Text="ID:" Margin="75,0,0,0" Grid.Row="2"/>
+                        <TextBlock x:Name="TextBlockID" Text="{Binding ID}" Margin="105,0,0,0" Grid.Row="2"/>
+                        <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" Grid.Row="3"/>
+
+                        <GridView  Grid.Row="4" ItemsSource="{Binding StringTypes}"  HorizontalAlignment="Center" IsHitTestVisible="False">
+                            <GridView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" Grid.Row="0" />
+                                    </Grid>
+                                </DataTemplate>
+                            </GridView.ItemTemplate>
+                        </GridView>
+
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+
+        <Button x:Name="NextButton" Content="Next" Height="30" Margin="892,648,0,0" VerticalAlignment="Top" Width="238" FontWeight="Bold" CornerRadius="8" Command="{Binding NextPageCommandButton}" Visibility="{Binding ButtonsInitialPageVisibility}" IsEnabled="{Binding ButtonClickEnable}">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFE8B6B6"/>
+                    <GradientStop Color="#FFA60A0A" Offset="0.349"/>
+                    <GradientStop Color="#FFCD7070" Offset="0.135"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+        <Button x:Name="PreviousButton" Content="Previous" Height="30" Margin="158,648,0,0" VerticalAlignment="Top" Width="238" FontWeight="Bold" CornerRadius="8" Command="{Binding PreviousPageCommandButton}" Foreground="#FFFBFBFB" Visibility="{Binding ButtonsInitialPageVisibility}" IsEnabled="{Binding ButtonClickEnable}">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFE8B6B6"/>
+                    <GradientStop Color="#FFA60A0A" Offset="0.349"/>
+                    <GradientStop Color="#FFCD7070" Offset="0.135"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+        <Image HorizontalAlignment="Left" Height="72" Margin="580,42,0,0" VerticalAlignment="Top" Width="228" Source="/Assets/pokedex__copy__-_Window-removebg-preview.png"/>
+        <ComboBox x:Name="ComboBoxMenu" PlaceholderText="Escolha uma busca" Width="200" Margin="310,149,0,0" CornerRadius="10" SelectedIndex="{Binding IndexComboBox, Mode=TwoWay}">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF5472D3" Offset="0.067"/>
+                    <GradientStop Color="#FF002171" Offset="0.912"/>
+                    <GradientStop Color="#FF0D47A1" Offset="0.47"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+            <ComboBoxItem Content="Busca por Nome " />
+            <ComboBoxItem Content="Busca por Tipo "/>
+            <ComboBoxItem Content="Busca por ID "/>
+            <ComboBoxItem Content="Seus Pokémons"/>
+        </ComboBox>
+
+        <TextBox HorizontalAlignment="Left" Margin="525,150,0,0" TextWrapping="Wrap" Text="{Binding SearchPokemon, Mode=TwoWay}" VerticalAlignment="Top" Width="491" Height="30" PlaceholderText="Digite aqui..."/>
+        <Button Margin="1025,151,0,0" VerticalAlignment="Top" Height="29" Width="37" Click="RegisterPageFrameCollapsedButtonEvent" Command="{Binding ProcessQueryCommand}" IsEnabled="{Binding ButtonClickEnable}">
+            <Button.Background>
+                <ImageBrush ImageSource="/Assets/lupa (1).png" Stretch="Uniform"/>
+            </Button.Background>
+        </Button>
+        <Button Content="Crie seu pokémon +" Command="{Binding AddPokemonFromUserCommand}" Click="ShowRegisterPageViewButtonEvent" Margin="158,150,0,0" VerticalAlignment="Top" Height="30" CornerRadius="10" FontSize="13" Foreground="White" FocusVisualPrimaryBrush="White" IsEnabled="{Binding ButtonClickEnable}">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFB89018" Offset="0.527"/>
+                    <GradientStop Color="#FFE4B31F" Offset="0.388"/>
+                    <GradientStop Color="#FFFFD75D" Offset="0.068"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <TextBlock x:Name="TextPage" HorizontalAlignment="Center" Margin="0,654,60,0" Text="{Binding CurrentPageView, Mode=OneWay}" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontFamily="Impact" FontSize="14" Visibility="{Binding ButtonsInitialPageVisibility}"/>
+        <Button x:Name="BackHomeButton" Content="" Margin="615,633,0,0" VerticalAlignment="Top" Height="49" Width="57" Click="RegisterPageFrameCollapsedButtonEvent" Command="{Binding CommandBackHome}" Visibility="{Binding ButtonHomeVisibility}" IsEnabled="{Binding ButtonClickEnable}">
+            <Button.Background>
+                <ImageBrush ImageSource="/Assets/casa (1).png" Stretch="Uniform"/>
+            </Button.Background>
+        </Button>
+        <ProgressRing IsActive="True" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding ProgrssRingVisibility}" Margin="609,370,0,0" Height="62" Width="72" Foreground="White"/>
+
+        <Frame x:Name="RegisterPageFrame" HorizontalAlignment="Left" Height="410" VerticalAlignment="Top" Width="975" Background="#FFC12525" Margin="155,200,0,0" Visibility="Collapsed"/>
+
+        <Button Margin="1085,151,0,0" VerticalAlignment="Top" Height="28" Width="30" Click="ShowInformationDialogButtonEvent">
+            <Button.Background>
+                <ImageBrush ImageSource="/Assets/information.png" Stretch="Uniform"/>
+            </Button.Background>
+        </Button>
+    </Grid>
+</Page>

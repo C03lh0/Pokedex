@@ -1,0 +1,69 @@
+﻿<Page
+    x:Class="Pokedex.Views.RegisterPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Pokedex.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="using:Pokedex.PokedexViewModel"
+    d:DataContext="{d:DesignInstance Type=viewmodels:PokemonViewModel}"
+    mc:Ignorable="d"
+    Background="#FF2B5FAA" Height="410" Width="975" >
+
+
+    <Page.DataContext>
+        <viewmodels:PokemonViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
+
+    <Grid Background="#FFC12525" CornerRadius="8">
+        <TextBox x:Name="Name" HorizontalAlignment="Left" Margin="271,22,0,0" TextWrapping="Wrap" Text="{Binding InsertPokemonFromUserName, Mode=TwoWay}" VerticalAlignment="Top" PlaceholderText="Digite aqui..." CornerRadius="8" Background="#FFC93737" Width="217"/>
+        <TextBox x:Name="Attack" HorizontalAlignment="Left" Margin="271,67,0,0" TextWrapping="Wrap" Text="{Binding InsertPokemonFromUserAttackScore, Mode=TwoWay}" VerticalAlignment="Top"  PlaceholderText="Digite aqui..." CornerRadius="8" Background="#FFC93737" Width="217" InputScope="Number"/>
+        <TextBox x:Name="Defense" HorizontalAlignment="Left" Margin="271,112,0,0" TextWrapping="Wrap" Text="{Binding InsertPokemonFromUserDefenseScore, Mode=TwoWay}" VerticalAlignment="Top"  PlaceholderText="Digite aqui..." CornerRadius="8" Background="#FFC93737" Width="217" InputScope="Number"/>
+        <TextBox x:Name="SpecialAttack" HorizontalAlignment="Left" Margin="271,160,0,0" TextWrapping="Wrap" Text="{Binding InsertPokemonFromUserSpecialAttackScore, Mode=TwoWay}" VerticalAlignment="Top"  PlaceholderText="Digite aqui..." CornerRadius="8" Background="#FFC93737" Width="217" InputScope="Number"/>
+        <TextBox x:Name="SpecialDefense" HorizontalAlignment="Left" Margin="271,207,0,0" TextWrapping="Wrap" Text="{Binding InsertPokemonFromUserSpecialDefenseScore, Mode=TwoWay}" VerticalAlignment="Top"  PlaceholderText="Digite aqui..." CornerRadius="8" Background="#FFC93737" Width="217" InputScope="Number"/>
+
+        <TextBlock Text="Name:" Margin="36,27,880,361"/>
+        <TextBlock Text="Pontuação de ataque:" Margin="36,73,784,312"/>
+        <TextBlock Text="Pontuação de defesa:" Margin="37,117,798,269"/>
+        <TextBlock Text="Pontuação de ataque especial:" Margin="37,165,745,221"/>
+        <TextBlock Text="Pontuação de defesa especial:" Margin="39,213,746,175"/>
+        <TextBlock Text="Abilidades:" Margin="41,258,864,128"/>
+
+        <Button Content="Criar" Height="30" Width="89" FontWeight="Bold" CornerRadius="8" Click="Button_Click" Command="{Binding CreatePokemonFromUserCommand}" Foreground="#FFFBFBFB" Visibility="{Binding ButtonsInitialPageVisibility}" Margin="394,337,0,0" VerticalAlignment="Top">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFE8B6B6"/>
+                    <GradientStop Color="#FF320707" Offset="0.867"/>
+                    <GradientStop Color="#FFF03B13" Offset="0.069"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <TextBox x:Name="AbilitiesBox" HorizontalAlignment="Left" Margin="271,252,0,0" TextWrapping="Wrap" Text="{Binding InsertPokemonFromUserAbilities, Mode=TwoWay}" VerticalAlignment="Top"  PlaceholderText="Digite aqui..." CornerRadius="8" Background="#FFC93737" Width="217"/>
+        <TextBox x:Name="experienceBox" HorizontalAlignment="Left" Margin="668,22,0,0" TextWrapping="Wrap" Text="{Binding InsertPokemonFromUserExperience, Mode=TwoWay}" VerticalAlignment="Top" PlaceholderText="Digite aqui..." CornerRadius="8" Background="#FFC93737" Width="217" InputScope="Number"/>
+        <TextBox x:Name="speedBox" HorizontalAlignment="Left" Margin="668,66,0,0" TextWrapping="Wrap" Text="{Binding InsertPokemonFromUserSpeed, Mode=TwoWay}" VerticalAlignment="Top" PlaceholderText="Digite aqui..." CornerRadius="8" Background="#FFC93737" Width="217" InputScope="Number"/>
+        <TextBox x:Name="heightBox" HorizontalAlignment="Left" Margin="668,112,0,0" TextWrapping="Wrap" Text="{Binding InsertPokemonFromUserHeight, Mode=TwoWay}" VerticalAlignment="Top" PlaceholderText="Digite aqui..." CornerRadius="8" Background="#FFC93737" Width="217" InputScope="Number"/>
+        <TextBox x:Name="weightBox" HorizontalAlignment="Left" Margin="668,160,0,0" TextWrapping="Wrap" Text="{Binding InsertPokemonFromUserWeight, Mode=TwoWay}" VerticalAlignment="Top" PlaceholderText="Digite aqui..." CornerRadius="8" Background="#FFC93737" Width="217" InputScope="Number"/>
+        <TextBox x:Name="HPBox" HorizontalAlignment="Left" Margin="668,207,0,0" TextWrapping="Wrap" Text="{Binding InsertPokemonFromUserHP, Mode=TwoWay}" VerticalAlignment="Top" PlaceholderText="Digite aqui..." CornerRadius="8" Background="#FFC93737" Width="217" InputScope="Number"/>
+        <TextBox x:Name="TypeBox" HorizontalAlignment="Left" Margin="668,252,0,0" TextWrapping="Wrap" Text="{Binding InsertPokemonFromUserType, Mode=TwoWay}" VerticalAlignment="Top" PlaceholderText="Digite aqui..." CornerRadius="8" Background="#FFC93737" Width="217"/>
+
+        <TextBlock Text="Experiência:" Margin="547,29,354,359"/>
+        <TextBlock Text="Altura:" Margin="547,119,354,269"/>
+        <TextBlock Text="Peso:" Margin="547,167,354,221"/>
+        <TextBlock Text="HP:" Margin="547,214,354,174"/>
+        <TextBlock Text="Rapidez:" Margin="547,74,354,314"/>
+        <TextBlock Text="Tipo:" Margin="547,258,354,130"/>
+
+        <Button Content="" Height="30" Width="217" FontWeight="Bold" CornerRadius="8" Command="{Binding AlertAbilitiesBoxCommand}" Visibility="{Binding AlertAbilitiesBoxButtonVisibility}" Foreground="#FFFBFBFB" Margin="271,252,0,0" VerticalAlignment="Top" Background="Transparent"/>
+        <Button Content="" Height="30" Width="217" FontWeight="Bold" CornerRadius="8" Command="{Binding AlertTypesBoxCommand}" Visibility="{Binding AlertTypesBoxButtonVisibility}" Foreground="#FFFBFBFB" Margin="668,253,0,0" VerticalAlignment="Top" Background="Transparent"/>
+        <Button Content="Add Imagem" Height="30" Width="112" FontWeight="Bold" CornerRadius="8" Command="{Binding CommandLoadPictureNewPokemon}" Foreground="#FFFBFBFB" Visibility="{Binding ButtonsInitialPageVisibility}" Margin="488,337,0,0" VerticalAlignment="Top">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFE8B6B6"/>
+                    <GradientStop Color="#FF320707" Offset="0.867"/>
+                    <GradientStop Color="#FFF03B13" Offset="0.094"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+    </Grid>
+</Page>
